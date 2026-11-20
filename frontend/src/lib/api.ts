@@ -14,3 +14,8 @@ export function loadStoredToken() {
   if (token) setAuthToken(token);
   return token;
 }
+
+export function clearAuthToken() {
+  delete api.defaults.headers.common["Authorization"];
+  localStorage.removeItem("token");
+}

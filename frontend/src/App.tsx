@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadStoredToken } from "./lib/api";
+import { loadStoredToken, clearAuthToken } from "./lib/api";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
@@ -11,5 +11,14 @@ export default function App() {
     if (token) setLoggedIn(true);
   }, []);
 
-  return loggedIn ? <Dashboard /> : <Login onLoggedIn={() => setLoggedIn(true)} />;
+  function handleLogout() {
+    clearAuthToken();
+    setLoggedIn(false);
+  }
+
+  return loggedIn ? (
+    <Dashboard onLogout={handleLogout} />
+  ) : (
+    <Login onLoggedIn={() => setLoggedIn(true)} />
+  );
 }
